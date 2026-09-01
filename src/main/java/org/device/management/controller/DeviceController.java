@@ -43,18 +43,18 @@ public class DeviceController {
 
     @GetMapping("/{id}")
     public DeviceResponse getById(@PathVariable Long id) {
-        return null;
+        return DeviceResponse.response(service.findById(id));
     }
 
     @GetMapping
     public List<DeviceResponse> getAll(@RequestParam(required = false) String brand,
                                        @RequestParam(required = false) DeviceState state) {
-        return null;
+        return service.find(brand, state).stream().map(DeviceResponse::response).toList();
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long id) {
-
+        service.delete(id);
     }
 }

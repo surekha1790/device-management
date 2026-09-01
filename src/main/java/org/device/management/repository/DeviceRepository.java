@@ -1,7 +1,14 @@
 package org.device.management.repository;
 
 import org.device.management.entity.Device;
+import org.device.management.entity.DeviceState;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 public interface DeviceRepository extends JpaRepository<Device, Long> {
+
+    List<Device> findByBrandIgnoreCase(String brand);
+    List<Device> findByState(DeviceState state);
+    List<Device> findByBrandIgnoreCaseAndState(String brand, DeviceState state);
 }

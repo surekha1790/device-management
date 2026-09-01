@@ -9,6 +9,8 @@ import org.device.management.repository.DeviceRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class DeviceService {
 
@@ -20,34 +22,36 @@ public class DeviceService {
 
     @Transactional
     public Device create(CreateDeviceRequest request) {
-       return repository.save(Device.register(request.name(), request.brand()));
+        if(request.state() == null) {
+            return repository.save(Device.register(request.name(), request.brand()));
+        }
+        return repository.save(Device.register(request.name(), request.brand(), request.state()));
     }
 
     @Transactional
     public Device update(long id, UpdateDeviceRequest request) {
-        Device device = repository.findById(id).orElseThrow(() -> new DeviceNotFoundException(id));
+        Device device = load(id);
         device.update(request.name(), request.brand(), request.state());
         return device;
     }
 
     @Transactional(readOnly = true)
-    public void findById(long id) {
-
+    public Device findById(long id) {
+        return load(id);
     }
 
     @Transactional(readOnly = true)
-    public void findAll() {
-
-    }
-
-    @Transactional(readOnly = true)
-    public void findByBrand(String brand){
-
-    }
-
-    @Transactional(readOnly = true)
-    public void findByState(DeviceState deviceState) {
-
+    public List<Device> find(String brand, DeviceState state) {
+        if(brand != null && state != null) {
+            return repository.findByBrandIgnoreCaseAndState(brand,state);
+        }
+        if(brand != null){
+            return repository.findByBrandIgnoreCase(brand);
+        }
+        if(state != null) {
+            return repository.findByState(state);
+        }
+        return repository.findAll();
     }
 
     @Transactional
