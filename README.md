@@ -200,7 +200,6 @@ Base path is `/api/v1/devices`
 role-based permissions.
 * **Pagination**: Pagination can be introduced as the device dataset grows to avoid returning large result 
 sets in a single response.
-* API Documentation: OpenAPI/Swagger documentation can be added to make the API contract easier to explore and consume.
 
 
 # Unit Testing
