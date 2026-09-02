@@ -68,17 +68,17 @@ public class Device {
 
     private void rename(String name) {
         String value = validateText(name, "Name");
-        validateState();
         if (value.equals(this.name))
             return;
+        validateState();
         this.name = value;
     }
 
     private void updateBrand(String brand) {
         String value = validateText(brand, "Brand");
-        validateState();
         if (value.equals(this.brand))
             return;
+        validateState();
         this.brand = value;
     }
 
@@ -98,10 +98,10 @@ public class Device {
     }
 
     private static String validateText(String value, String name) {
-        Objects.requireNonNull(value, () -> name + "should not be null");
+        Objects.requireNonNull(value, () -> name + " should not be null");
         String trimmedValue = value.strip();
         if (trimmedValue.isBlank()) {
-            throw new IllegalArgumentException(name + "should not be blank");
+            throw new IllegalArgumentException(name + " should not be blank");
         }
         return trimmedValue;
     }

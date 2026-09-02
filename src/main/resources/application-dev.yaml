@@ -11,4 +11,4 @@ spring:
 logging:
   level:
     root: INFO
-    org.device.management: DEBUG
+    org.device.management: INFO

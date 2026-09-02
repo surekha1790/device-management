@@ -90,7 +90,7 @@ public class DeviceServiceTest {
     @Test
     @DisplayName("update in use device brand should fail")
     public void updateInUseDeviceBrand() {
-        UpdateDeviceRequest request = new UpdateDeviceRequest(null, "Google", null);
+        UpdateDeviceRequest request = new UpdateDeviceRequest(null, "Google1", null);
         when(repository.findById(anyLong())).thenReturn(
                 Optional.of(createWithId(125, "Pixel 7", "Google", DeviceState.IN_USE)));
         assertThrows(DeviceInUseException.class, () -> service.update(125, request),
