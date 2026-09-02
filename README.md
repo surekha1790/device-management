@@ -49,7 +49,7 @@ develop a REST API capable of persisting and managing device resources.
     docker logs -f device-api
 ```
 
-This alone brings up PostgreSQL and application. Flyway creates the schema on first start.
+This alone brings up PostgreSQL and application with dev profile. Flyway creates the schema on first start.
 
 Server: `http://localhost:8080`
 PostgreSQL: localhost:5432
@@ -71,7 +71,9 @@ Default value is set to dev for SPRING_PROFILES_ACTIVE to bring up easily.
 
 ### Swagger and Documentation
 Documentation is available at
+
 Swagger-UI: http://localhost:8080/swagger-ui/index.html
+
 Spec: http://localhost:8080/v3/api-docs
 
 

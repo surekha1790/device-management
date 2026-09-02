@@ -37,7 +37,7 @@ public class DeviceService {
      */
     @Transactional
     public Device create(CreateDeviceRequest request) {
-        log.info("Creating new device with name={}, brand={}", request.name(), request.brand());
+        log.info("Create new device with name={}, brand={}", request.name(), request.brand());
         if(request.state() == null) {
             return repository.save(Device.register(request.name(), request.brand()));
         }
