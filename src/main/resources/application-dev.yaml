@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    url: ${DATASOURCE_URL:jdbc:postgresql://localhost:5432/device_management}
+    username: ${DB_USERNAME:device}
+    password: ${DB_PASSWORD:device}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    show-sql: false
+
+logging:
+  level:
+    root: INFO
+    org.device.management: DEBUG

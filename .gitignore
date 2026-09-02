@@ -1,3 +1,5 @@
+#Avoid version control build and other IDE specific files
+
 HELP.md
 target/
 .mvn/wrapper/maven-wrapper.jar

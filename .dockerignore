@@ -1,0 +1,18 @@
+# avoid bundling build and IDE specific files
+target/
+.git
+.gitignore
+.idea
+*.iws
+*.iml
+*.ipr
+.vscode/
+.mvn/
+mvnw
+mvnw.cmd
+Dockerfile
+.dockerignore
+README.md
+compose.yaml
+README.md
+*.md

@@ -1,0 +1,46 @@
+services:
+  db:
+    image: postgres:17-alpine
+    container_name: device-db
+
+    environment:
+      POSTGRES_DB: ${DB_NAME:-device_management}
+      POSTGRES_USER: ${DB_USERNAME:-device}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-device}
+
+    ports:
+      - "${DB_PORT:-5432}:5432"
+
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME:-device} -d ${DB_NAME:-device_management}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+
+  app:
+    build:
+      context: .
+
+    container_name: device-api
+
+    depends_on:
+      db:
+        condition: service_healthy
+
+    environment:
+      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE}
+      DATASOURCE_URL: jdbc:postgresql://db:5432/${DB_NAME:-device_management}
+      DB_USERNAME: ${DB_USERNAME:-device}
+      DB_PASSWORD: ${DB_PASSWORD:-device}
+
+    ports:
+      - "${APP_PORT:-8080}:8080"
+
+    restart: unless-stopped
+
+volumes:
+  pgdata:

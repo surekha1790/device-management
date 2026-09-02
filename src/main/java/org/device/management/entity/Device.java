@@ -1,19 +1,14 @@
 package org.device.management.entity;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 import org.device.management.exception.DeviceInUseException;
 
 import java.time.Instant;
 import java.util.Objects;
 
-@Getter
 @Entity
 @Table(name = "devices",
         indexes = {@Index(name = "idx_device_brand", columnList = "brand")})
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Device {
 
     @Id
@@ -36,6 +31,9 @@ public class Device {
 
     @Version
     private long version;
+
+    protected Device() {
+    }
 
     private Device(String name, String brand, DeviceState deviceState, Instant createdAt) {
         this.name = validateText(name, "Name");
@@ -85,7 +83,7 @@ public class Device {
     }
 
     public void validateDeletable() {
-        if(isInUse()) {
+        if (isInUse()) {
             throw new DeviceInUseException("Device %s is in use, can not be deleted".formatted(id), id);
         }
     }
@@ -106,5 +104,42 @@ public class Device {
             throw new IllegalArgumentException(name + "should not be blank");
         }
         return trimmedValue;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public DeviceState getState() {
+        return state;
+    }
+
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
+    public long getVersion() {
+        return version;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) return true;
+        if (!(o instanceof Device device))
+            return false;
+        return id != null && Objects.equals(id, device.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Device.class.hashCode();
     }
 }
