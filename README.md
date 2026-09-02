@@ -58,12 +58,14 @@ Profile and Connection properties come from external environment variables with 
 
 `SPRING_PROFILES_ACTIVE, APP_PORT, DB_NAME, DB_USERNAME, DB_PASSWORD`
 
+Ports are configured with ```DB_PORT, APP_PORT```
+
 Default value is set to dev for SPRING_PROFILES_ACTIVE to bring up easily. 
 
 **Override while running**
 ```shell
     # Bash
-    SPRING_PROFILES_ACTIVE=dev && docker compose up --build
+    SPRING_PROFILES_ACTIVE=dev DB_PORT=55443 APP_PORT=9099 docker compose up --build
     # Windows CMD
     set SPRING_PROFILES_ACTIVE=dev && docker compose up --build
 ```
@@ -76,6 +78,20 @@ Swagger-UI: http://localhost:8080/swagger-ui/index.html
 
 Spec: http://localhost:8080/v3/api-docs
 
+### LOCAL RUN
+* To run application locally, create PostgreSQL database and user.
+* Connect to PostgreSQL and run below commands
+
+```psql
+psql -U postgres
+
+CREATE USER <username> WITH PASSWORD '<password>';
+
+CREATE DATABASE device_management OWNER <username>;
+```
+* Configure these properties are : ```DB_USERNAME, DB_PASSWORD```
+* Application connects to ```jdbc:postgresql://localhost:5432/device_management```
+* Flyway runs the migration when application starts.
 
 ## API
 
