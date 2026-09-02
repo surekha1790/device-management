@@ -52,6 +52,10 @@ public class Device {
         return new Device(name, brand, DeviceState.AVAILABLE, Instant.now());
     }
 
+    public static Device register(String name, String brand, DeviceState state, Instant createdAt) {
+        return new Device(name, brand, state, createdAt);
+    }
+
     public void update(String name, String brand, DeviceState state) {
         if (name != null) {
             rename(name);
