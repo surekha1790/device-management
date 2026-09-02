@@ -32,7 +32,7 @@ services:
         condition: service_healthy
 
     environment:
-      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE}
+      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE:-dev}
       DATASOURCE_URL: jdbc:postgresql://db:5432/${DB_NAME:-device_management}
       DB_USERNAME: ${DB_USERNAME:-device}
       DB_PASSWORD: ${DB_PASSWORD:-device}

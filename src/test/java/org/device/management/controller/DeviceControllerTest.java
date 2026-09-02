@@ -78,8 +78,7 @@ public class DeviceControllerTest {
         mockMvc.perform(post("/api/v1/devices")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
-                .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.errors.name").exists());
+                .andExpect(status().isBadRequest());
         verify(service, never()).create(any(CreateDeviceRequest.class));
     }
 

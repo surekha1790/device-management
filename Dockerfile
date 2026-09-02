@@ -21,7 +21,7 @@ RUN --mount=type=cache,target=/root/.m2 \
 FROM eclipse-temurin:21-jre-jammy AS runtime
 
 RUN groupadd --system --gid 1001 app \
-   && useradd --system --uid 1001 --grid app \
+   && useradd --system --uid 1001 --gid app \
       --home-dir /app --shell /usr/sbin/nologin app
 
 WORKDIR /app
